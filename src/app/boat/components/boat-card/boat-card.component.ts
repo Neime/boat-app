@@ -4,7 +4,6 @@ import { Router } from "@angular/router";
 import { BoatCardDirective } from "../../directives/boat-card.directive";
 import { BoatTypeColorPipe } from "../../pipes/boat-type-color.pipe";
 import { CommonModule } from "@angular/common";
-import { InMemoryBoatRespository } from "../../../infrastructure/repository/inMemoryBoatRespository";
 
 @Component({
   selector: "app-boat-card",

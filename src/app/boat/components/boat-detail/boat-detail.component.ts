@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, Input, inject } from "@angular/core";
 import { Boat } from "../../entities/boat";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BoatCardDirective } from "../../directives/boat-card.directive";
@@ -15,14 +15,13 @@ import { InMemoryBoatRespository } from "../../../infrastructure/repository/inMe
   styles: ``,
 })
 export class BoatDetailComponent {
-  private readonly boatsRepository = inject(InMemoryBoatRespository);
   boat: Boat | undefined;
 
-  constructor(private route: ActivatedRoute) {
-    this.route.paramMap.subscribe((params) => {
-      const boatId: number = Number(this.route.snapshot.paramMap.get("id"));
-      this.boat = this.boatsRepository.byId(boatId);
-    });
+  constructor(private readonly boatRepository: InMemoryBoatRespository) {}
+
+  @Input()
+  set id(id: number) {
+    this.boat = this.boatRepository.byId(+id);
   }
 
   goBack(): void {

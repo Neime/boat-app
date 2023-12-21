@@ -12,8 +12,11 @@ import { InMemoryBoatRespository } from "../../../infrastructure/repository/inMe
   providers: [InMemoryBoatRespository],
 })
 export class ListBoatComponent {
-  private readonly boatsRepository = inject(InMemoryBoatRespository);
-  boats: Boat[] = this.boatsRepository.findAll();
+  boats: Boat[] = [];
+
+  constructor(private readonly boatRepository: InMemoryBoatRespository) {
+    this.boats = this.boatRepository.findAll();
+  }
 
   selectBoat(boatName: string): void {}
 }
