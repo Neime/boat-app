@@ -3,7 +3,7 @@ import { Boat } from "../../boat/entities/boat";
 import { BoatRepository } from "./boatRepository";
 
 @Injectable()
-export class InMemoryBoatRespository implements BoatRepository {
+export class InMemoryBoatRepository implements BoatRepository {
   #boats: Boat[] = [
     {
       id: 1,

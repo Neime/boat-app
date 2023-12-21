@@ -2,19 +2,19 @@ import { Component, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Boat } from "../../entities/boat";
 import { BoatCardComponent } from "../boat-card/boat-card.component";
-import { InMemoryBoatRespository } from "../../../infrastructure/repository/inMemoryBoatRespository";
+import { InMemoryBoatRepository } from "../../../infrastructure/repository/inMemoryBoatRepository";
 
 @Component({
   selector: "app-list-boat",
   standalone: true,
   imports: [CommonModule, BoatCardComponent],
   templateUrl: "./list-boat.component.html",
-  providers: [InMemoryBoatRespository],
+  providers: [InMemoryBoatRepository],
 })
 export class ListBoatComponent {
   boats: Boat[] = [];
 
-  constructor(private readonly boatRepository: InMemoryBoatRespository) {
+  constructor(private readonly boatRepository: InMemoryBoatRepository) {
     this.boats = this.boatRepository.findAll();
   }
 

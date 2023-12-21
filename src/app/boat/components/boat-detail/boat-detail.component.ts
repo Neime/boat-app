@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { BoatCardDirective } from "../../directives/boat-card.directive";
 import { BoatTypeColorPipe } from "../../pipes/boat-type-color.pipe";
 import { CommonModule } from "@angular/common";
-import { InMemoryBoatRespository } from "../../../infrastructure/repository/inMemoryBoatRespository";
+import { InMemoryBoatRepository } from "../../../infrastructure/repository/inMemoryBoatRepository";
 
 @Component({
   selector: "app-boat-detail",
-  providers: [InMemoryBoatRespository],
+  providers: [InMemoryBoatRepository],
   standalone: true,
   imports: [BoatCardDirective, BoatTypeColorPipe, CommonModule],
   templateUrl: "./boat-detail.component.html",
@@ -17,7 +17,7 @@ import { InMemoryBoatRespository } from "../../../infrastructure/repository/inMe
 export class BoatDetailComponent {
   boat: Boat | undefined;
 
-  constructor(private readonly boatRepository: InMemoryBoatRespository) {}
+  constructor(private readonly boatRepository: InMemoryBoatRepository) {}
 
   @Input()
   set id(id: number) {
