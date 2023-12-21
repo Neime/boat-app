@@ -1,0 +1,10 @@
+
+@if (boat) {
+    <div (click)="goToBoat(boat.id)" boatCard>
+        <a>
+            <p class="font-bold">{{boat.name  | uppercase }}</p>
+            <span class="py-1 px-2 rounded-md {{boat.type | boatTypeColor }}">{{boat.type }}</span>
+            <p >{{boat.city }}</p>
+        </a>
+    </div>
+}
