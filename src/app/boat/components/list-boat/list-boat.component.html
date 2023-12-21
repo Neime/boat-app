@@ -7,6 +7,6 @@
 
 <div class="grid grid-cols-4 gap-4">
 @for (boat of boats; track boat.id) {
-    <app-boat-card [boatId]="boat.id"></app-boat-card>
+    <app-boat-card [boat]="boat"></app-boat-card>
 }
 </div>

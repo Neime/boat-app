@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, inject } from "@angular/core";
 import { Boat } from "../../entities/boat";
 import { Router } from "@angular/router";
-import { BOATS } from "../../mock.boat";
 import { BoatCardDirective } from "../../directives/boat-card.directive";
 import { BoatTypeColorPipe } from "../../pipes/boat-type-color.pipe";
 import { CommonModule } from "@angular/common";
+import { InMemoryBoatRespository } from "../../../infrastructure/repository/inMemoryBoatRespository";
 
 @Component({
   selector: "app-boat-card",
@@ -13,17 +13,10 @@ import { CommonModule } from "@angular/common";
   templateUrl: "./boat-card.component.html",
   styles: ``,
 })
-export class BoatCardComponent implements OnInit {
-  boat: Boat | undefined;
-  boats: Boat[] = BOATS;
-
+export class BoatCardComponent {
   constructor(private router: Router) {}
 
-  @Input() boatId: number = 0;
-
-  ngOnInit(): void {
-    this.boat = this.boats.find((b: Boat) => b.id === this.boatId);
-  }
+  @Input() boat: Boat | undefined;
 
   goToBoat(boatId: number): void {
     this.router.navigate(["/boat", boatId]);
