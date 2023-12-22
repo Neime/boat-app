@@ -11,6 +11,16 @@ export class ApiBoatRepository implements BoatRepository {
     @Inject("apiUrl") private readonly apiUrl: string
   ) {}
 
+  search(term: string): Observable<Boat[]> {
+    if (term.length < 2) {
+      return of([]);
+    }
+    return this.httpClient.get<Boat[]>(`${this.apiUrl}boats?term=${term}`).pipe(
+      tap((response) => this.log(response)),
+      catchError((error) => this.handleError(error, []))
+    );
+  }
+
   findAll(): Observable<Boat[]> {
     return this.httpClient.get<Boat[]>(`${this.apiUrl}boats`).pipe(
       tap((response) => this.log(response)),

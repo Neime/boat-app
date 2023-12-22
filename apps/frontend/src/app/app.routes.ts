@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { PageNotFoundComponent } from "./frontoffice/boat/components/page-not-found/page-not-found.component";
+import { PageNotFoundComponent } from "./frontoffice/page-not-found/page-not-found.component";
 import { backofficeRoutes } from "./backoffice/backoffice.routes";
 import { frontofficeRoutes } from "./frontoffice/frontoffice.routes";
 

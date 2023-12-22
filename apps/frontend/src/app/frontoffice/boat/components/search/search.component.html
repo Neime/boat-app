@@ -1,0 +1,16 @@
+<div class="relative" >
+    <input 
+    class="block rounded-md mt-1 p-2 border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+    #input
+    type="string"
+    (keyup)="search(input.value)"
+        placeholder="Search..." 
+    />
+    <div [ngClass]="searchActive() ? '' : 'invisible opacity-0'" class="absolute z-10 inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div class="px-3 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+            @for (boat of boats$ | async; track boat.id) {
+                <a class="block text-white" (click)="goToBoat(boat)" >{{ boat.name }}</a>
+            }
+        </div>
+    </div>
+</div>
