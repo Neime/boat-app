@@ -3,9 +3,13 @@ import { provideRouter, withComponentInputBinding } from "@angular/router";
 
 import { routes } from "./app.routes";
 import { backOfficeConfig } from "./backoffice/backoffice.config";
+import { provideHttpClient } from "@angular/common/http";
 
 const globalConfig: ApplicationConfig = {
-  providers: [provideRouter(routes, withComponentInputBinding())],
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(),
+  ],
 };
 
 export const appConfig: ApplicationConfig = mergeApplicationConfig(

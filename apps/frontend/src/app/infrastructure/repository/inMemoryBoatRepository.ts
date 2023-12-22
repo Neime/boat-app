@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Boat } from "../../frontoffice/boat/entities/boat";
 import { BoatRepository } from "./boatRepository";
+import { Observable, of } from "rxjs";
 
 @Injectable()
 export class InMemoryBoatRepository implements BoatRepository {
@@ -29,8 +30,8 @@ export class InMemoryBoatRepository implements BoatRepository {
     { id: 7, name: "Boat4", type: "sail", city: "Portsmouth, RI" },
   ];
 
-  findAll(): Boat[] {
-    return this.#boats;
+  findAll(): Observable<Boat[]> {
+    return of(this.#boats);
   }
   byId(id: number): Boat {
     return this.#boats.find((b) => b.id === id)!;

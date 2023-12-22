@@ -4,6 +4,7 @@ import { Boat } from "../../entities/boat";
 import { InMemoryBoatRepository } from "../../../../infrastructure/repository/inMemoryBoatRepository";
 import { BoatCardComponent } from "../boat-card/boat-card.component";
 import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-list-boat",
@@ -14,7 +15,7 @@ import { BoatRepository } from "../../../../infrastructure/repository/boatReposi
 })
 export class ListBoatComponent {
   #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
-  boats: Boat[] = this.#boatRepository.findAll();
+  boats: Observable<Boat[]> = this.#boatRepository.findAll();
 
   selectBoat(boatName: string): void {}
 }

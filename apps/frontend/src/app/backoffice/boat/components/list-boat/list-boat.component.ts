@@ -1,18 +1,20 @@
 import { Component, Input, inject } from "@angular/core";
 import { Boat } from "../../../../frontoffice/boat/entities/boat";
-import { InMemoryBoatRepository } from "../../../../infrastructure/repository/inMemoryBoatRepository";
 import { RouterLink } from "@angular/router";
 import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
+import { Observable } from "rxjs";
+import { CommonModule } from "@angular/common";
+import { ApiBoatRepository } from "../../../../infrastructure/repository/ApiBoatRepository";
 
 @Component({
   selector: "app-admin-list-boat",
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: "./list-boat.component.html",
 })
 export class AdminListBoatComponent {
-  #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
-  boats: Boat[] = this.#boatRepository.findAll();
+  #boatRepository: BoatRepository = inject(ApiBoatRepository);
+  boats: Observable<Boat[]> = this.#boatRepository.findAll();
 
   deleteBoat(boat: Boat): void {
     this.#boatRepository.delete(boat);
