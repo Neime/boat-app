@@ -5,4 +5,5 @@ import { AdminBoatFormComponent } from "./components/boat-form/boat-form.compone
 export const adminBoatRoutes: Routes = [
   { path: "admin/boats", component: AdminListBoatComponent },
   { path: "admin/boat/:id", component: AdminBoatFormComponent },
+  { path: "admin/boat/create", component: AdminBoatFormComponent },
 ];

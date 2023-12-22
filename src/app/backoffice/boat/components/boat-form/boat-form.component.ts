@@ -3,7 +3,6 @@ import { InMemoryBoatRepository } from "../../../../infrastructure/repository/in
 import { Boat } from "../../../../frontoffice/boat/entities/boat";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormsModule, NgForm } from "@angular/forms";
-import { NgIf } from "@angular/common";
 import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
 
 @Component({
@@ -21,7 +20,14 @@ export class AdminBoatFormComponent {
 
   @Input()
   set id(id: number) {
-    this.boat = this.#boatRepository.byId(+id);
+    if (isNaN(+id)) this.boat = this.#boatRepository.byId(+id);
+
+    this.boat = {
+      id: 0,
+      name: "",
+      type: this.types[0],
+      city: "",
+    };
   }
 
   onSubmit(form: NgForm) {
