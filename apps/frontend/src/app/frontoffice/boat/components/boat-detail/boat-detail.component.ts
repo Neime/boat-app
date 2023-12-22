@@ -3,8 +3,8 @@ import { Boat } from "../../entities/boat";
 import { BoatCardDirective } from "../../directives/boat-card.directive";
 import { BoatTypeColorPipe } from "../../pipes/boat-type-color.pipe";
 import { CommonModule } from "@angular/common";
-import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
-import { ApiBoatRepository } from "../../../../infrastructure/repository/ApiBoatRepository";
+import { BoatRepository } from "../../../../infrastructure/repository/boat/boatRepository";
+import { ApiBoatRepository } from "../../../../infrastructure/repository/boat/ApiBoatRepository";
 
 @Component({
   selector: "app-boat-detail",

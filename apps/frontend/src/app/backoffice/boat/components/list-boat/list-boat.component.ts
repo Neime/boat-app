@@ -1,10 +1,10 @@
 import { Component, Input, inject } from "@angular/core";
 import { Boat } from "../../../../frontoffice/boat/entities/boat";
 import { RouterLink } from "@angular/router";
-import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
+import { BoatRepository } from "../../../../infrastructure/repository/boat/boatRepository";
 import { Observable } from "rxjs";
 import { CommonModule } from "@angular/common";
-import { ApiBoatRepository } from "../../../../infrastructure/repository/ApiBoatRepository";
+import { ApiBoatRepository } from "../../../../infrastructure/repository/boat/ApiBoatRepository";
 
 @Component({
   selector: "app-admin-list-boat",

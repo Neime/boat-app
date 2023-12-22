@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Boat } from "../../frontoffice/boat/entities/boat";
+import { Boat } from "../../../frontoffice/boat/entities/boat";
 import { BoatRepository } from "./boatRepository";
 import { Observable, of } from "rxjs";
 

@@ -1,4 +1,4 @@
-import { Boat } from "../../frontoffice/boat/entities/boat";
+import { Boat } from "../../../frontoffice/boat/entities/boat";
 import { Observable } from "rxjs";
 export interface BoatRepository {
   findAll(): Observable<Boat[]>;
