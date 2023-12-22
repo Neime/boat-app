@@ -33,19 +33,22 @@ export class InMemoryBoatRepository implements BoatRepository {
   findAll(): Observable<Boat[]> {
     return of(this.#boats);
   }
-  byId(id: number): Boat {
-    return this.#boats.find((b) => b.id === id)!;
+  byId(id: number): Observable<Boat> {
+    return of(this.#boats.find((b) => b.id === id)!);
   }
-  save(boat: Boat): void {
+  save(boat: Boat): Observable<Boat> {
     if (!boat.id) {
       boat.id = this.#boats.length + 1;
       this.#boats.push(boat);
     } else {
       this.#boats = this.#boats.map((b) => (b.id === boat.id ? boat : b));
     }
+
+    return of(boat);
   }
-  delete(boat: Boat): void {
+  delete(boat: Boat): Observable<null> {
     this.#boats = this.#boats.filter((b) => b.id !== boat.id);
+    return of();
   }
 
   types(): string[] {

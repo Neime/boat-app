@@ -4,11 +4,13 @@ import { Router } from "@angular/router";
 import { FormsModule, NgForm } from "@angular/forms";
 import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
 import { ApiBoatRepository } from "../../../../infrastructure/repository/ApiBoatRepository";
+import { Observable, of } from "rxjs";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-admin-boat-form",
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: "./boat-form.component.html",
 })
 export class AdminBoatFormComponent {
@@ -19,14 +21,14 @@ export class AdminBoatFormComponent {
 
   @Input()
   set id(id: number) {
-    this.boat = !isNaN(+id)
-      ? this.#boatRepository.byId(+id)
-      : {
+    !isNaN(+id)
+      ? this.#boatRepository.byId(+id).subscribe((boat) => (this.boat = boat))
+      : (this.boat = {
           id: 0,
           name: "",
           type: this.types[0],
           city: "",
-        };
+        });
   }
 
   onSubmit(form: NgForm) {
@@ -34,7 +36,8 @@ export class AdminBoatFormComponent {
       return;
     }
 
-    this.#boatRepository.save(this.boat as Boat);
-    this.#router.navigate(["/admin/boats"]);
+    this.#boatRepository
+      .save(this.boat as Boat)
+      .subscribe(() => this.#router.navigate(["/admin/boats"]));
   }
 }

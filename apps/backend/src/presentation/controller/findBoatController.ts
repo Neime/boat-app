@@ -1,0 +1,13 @@
+import { Controller, Get, Param } from '@nestjs/common';
+import { Boat } from 'src/boat/entities/boat';
+import { FindBoat } from 'src/boat/use-case/findBoat';
+
+@Controller('/boats/:id')
+export class FindBoatController {
+  constructor(private readonly boatUseCase: FindBoat) {}
+
+  @Get()
+  async boats(@Param('id') id: string): Promise<Boat> {
+    return await this.boatUseCase.execute(+id);
+  }
+}

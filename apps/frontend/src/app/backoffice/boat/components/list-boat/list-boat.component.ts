@@ -17,7 +17,8 @@ export class AdminListBoatComponent {
   boats: Observable<Boat[]> = this.#boatRepository.findAll();
 
   deleteBoat(boat: Boat): void {
-    this.#boatRepository.delete(boat);
-    this.boats = this.#boatRepository.findAll();
+    this.#boatRepository
+      .delete(boat)
+      .subscribe(() => (this.boats = this.#boatRepository.findAll()));
   }
 }

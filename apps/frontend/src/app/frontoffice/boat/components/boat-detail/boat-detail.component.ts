@@ -21,7 +21,7 @@ export class BoatDetailComponent {
 
   @Input()
   set id(id: number) {
-    this.boat = this.#boatRepository.byId(+id);
+    this.#boatRepository.byId(+id).subscribe((boat) => (this.boat = boat));
   }
 
   goBack(): void {

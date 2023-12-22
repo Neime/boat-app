@@ -14,20 +14,39 @@ export class ApiBoatRepository implements BoatRepository {
       catchError((error) => this.handleError(error, []))
     );
   }
-  byId(id: number): Boat {
-    return { id: 1, name: "Boat 1", type: "motor" } as Boat;
+  byId(id: number): Observable<Boat> {
+    return this.httpClient.get<Boat>(`http://localhost:3000/boats/${id}`).pipe(
+      tap((response) => this.log(response)),
+      catchError((error) => this.handleError(error, undefined))
+    );
   }
-  save(boat: Boat): void {
+  save(boat: Boat): Observable<Boat> {
     const httpOptions = {
       headers: new HttpHeaders({ "Content-Type": "application/json" }),
     };
-
-    this.httpClient
-      .post<Boat>("http://localhost:3000/boats", boat, httpOptions)
-      .subscribe();
+    if (!boat.id) {
+      return this.httpClient.post<Boat>(
+        "http://localhost:3000/boats",
+        boat,
+        httpOptions
+      );
+    } else {
+      return this.httpClient.put<Boat>(
+        `http://localhost:3000/boats/${boat.id}`,
+        boat,
+        httpOptions
+      );
+    }
   }
 
-  delete(boat: Boat): void {}
+  delete(boat: Boat): Observable<null> {
+    return this.httpClient
+      .delete(`http://localhost:3000/boats/${boat.id}`)
+      .pipe(
+        tap((response) => this.log(response)),
+        catchError((error) => this.handleError(error, null))
+      );
+  }
 
   types(): string[] {
     return ["motor", "sail", "kayak"];
