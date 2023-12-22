@@ -13,4 +13,9 @@ import { BoatRepository } from "../../../../infrastructure/repository/boatReposi
 export class AdminListBoatComponent {
   #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
   boats: Boat[] = this.#boatRepository.findAll();
+
+  deleteBoat(boat: Boat): void {
+    this.#boatRepository.delete(boat);
+    this.boats = this.#boatRepository.findAll();
+  }
 }
