@@ -1,3 +1,8 @@
 export class Boat {
-  constructor(name: string, type: string, city: string) {}
+  constructor(
+    public id: number,
+    public name: string,
+    public type: string,
+    public city: string,
+  ) {}
 }

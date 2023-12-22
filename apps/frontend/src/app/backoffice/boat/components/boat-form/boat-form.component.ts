@@ -1,9 +1,9 @@
 import { Component, Input, inject } from "@angular/core";
-import { InMemoryBoatRepository } from "../../../../infrastructure/repository/inMemoryBoatRepository";
 import { Boat } from "../../../../frontoffice/boat/entities/boat";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { FormsModule, NgForm } from "@angular/forms";
 import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
+import { ApiBoatRepository } from "../../../../infrastructure/repository/ApiBoatRepository";
 
 @Component({
   selector: "app-admin-boat-form",
@@ -12,7 +12,7 @@ import { BoatRepository } from "../../../../infrastructure/repository/boatReposi
   templateUrl: "./boat-form.component.html",
 })
 export class AdminBoatFormComponent {
-  #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
+  #boatRepository: BoatRepository = inject(ApiBoatRepository);
   #router: Router = inject(Router);
   boat: Boat | undefined;
   types: string[] = this.#boatRepository.types();
