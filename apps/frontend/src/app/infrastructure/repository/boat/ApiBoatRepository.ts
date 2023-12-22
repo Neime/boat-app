@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { Boat } from "../../../frontoffice/boat/entities/boat";
 import { BoatRepository } from "./boatRepository";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -6,16 +6,19 @@ import { Observable, catchError, of, tap } from "rxjs";
 
 @Injectable()
 export class ApiBoatRepository implements BoatRepository {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly httpClient: HttpClient,
+    @Inject("apiUrl") private readonly apiUrl: string
+  ) {}
 
   findAll(): Observable<Boat[]> {
-    return this.httpClient.get<Boat[]>("http://localhost:3000/boats").pipe(
+    return this.httpClient.get<Boat[]>(`${this.apiUrl}boats`).pipe(
       tap((response) => this.log(response)),
       catchError((error) => this.handleError(error, []))
     );
   }
   byId(id: number): Observable<Boat> {
-    return this.httpClient.get<Boat>(`http://localhost:3000/boats/${id}`).pipe(
+    return this.httpClient.get<Boat>(`${this.apiUrl}boats/${id}`).pipe(
       tap((response) => this.log(response)),
       catchError((error) => this.handleError(error, undefined))
     );
@@ -26,13 +29,13 @@ export class ApiBoatRepository implements BoatRepository {
     };
     if (!boat.id) {
       return this.httpClient.post<Boat>(
-        "http://localhost:3000/boats",
+        `${this.apiUrl}boats`,
         boat,
         httpOptions
       );
     } else {
       return this.httpClient.put<Boat>(
-        `http://localhost:3000/boats/${boat.id}`,
+        `${this.apiUrl}boats/${boat.id}`,
         boat,
         httpOptions
       );
@@ -40,12 +43,10 @@ export class ApiBoatRepository implements BoatRepository {
   }
 
   delete(boat: Boat): Observable<null> {
-    return this.httpClient
-      .delete(`http://localhost:3000/boats/${boat.id}`)
-      .pipe(
-        tap((response) => this.log(response)),
-        catchError((error) => this.handleError(error, null))
-      );
+    return this.httpClient.delete(`${this.apiUrl}boats/${boat.id}`).pipe(
+      tap((response) => this.log(response)),
+      catchError((error) => this.handleError(error, null))
+    );
   }
 
   types(): string[] {

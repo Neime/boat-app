@@ -4,6 +4,8 @@ import { provideRouter, withComponentInputBinding } from "@angular/router";
 import { routes } from "./app.routes";
 import { backOfficeConfig } from "./backoffice/backoffice.config";
 import { provideHttpClient } from "@angular/common/http";
+import { frontOfficeConfig } from "./frontoffice/frontoffice.config";
+import { infrastructureConfig } from "./infrastructure/infrastructure.config";
 
 const globalConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +16,7 @@ const globalConfig: ApplicationConfig = {
 
 export const appConfig: ApplicationConfig = mergeApplicationConfig(
   globalConfig,
-  backOfficeConfig
+  backOfficeConfig,
+  frontOfficeConfig,
+  infrastructureConfig
 );
