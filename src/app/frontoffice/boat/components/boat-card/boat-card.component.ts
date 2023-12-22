@@ -13,11 +13,11 @@ import { CommonModule } from "@angular/common";
   styles: ``,
 })
 export class BoatCardComponent {
-  constructor(private router: Router) {}
+  #router: Router = inject(Router);
 
   @Input() boat: Boat | undefined;
 
   goToBoat(boatId: number): void {
-    this.router.navigate(["/boat", boatId]);
+    this.#router.navigate(["/boat", boatId]);
   }
 }

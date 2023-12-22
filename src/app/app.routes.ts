@@ -1,9 +1,11 @@
 import { Routes } from "@angular/router";
-import { PageNotFoundComponent } from "./boat/components/page-not-found/page-not-found.component";
-import { boatRoutes } from "./boat/boat.routes";
+import { PageNotFoundComponent } from "./frontoffice/boat/components/page-not-found/page-not-found.component";
+import { backofficeRoutes } from "./backoffice/backoffice.routes";
+import { frontofficeRoutes } from "./frontoffice/frontoffice.routes";
 
 export const routes: Routes = [
-  ...boatRoutes,
+  ...frontofficeRoutes,
+  ...backofficeRoutes,
   { path: "", redirectTo: "boats", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent },
 ];

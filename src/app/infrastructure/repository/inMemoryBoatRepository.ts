@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Boat } from "../../boat/entities/boat";
+import { Boat } from "../../frontoffice/boat/entities/boat";
 import { BoatRepository } from "./boatRepository";
 
 @Injectable()
@@ -40,5 +40,9 @@ export class InMemoryBoatRepository implements BoatRepository {
   }
   delete(boat: Boat): void {
     this.#boats = this.#boats.filter((b) => b.id !== boat.id);
+  }
+
+  types(): string[] {
+    return ["motor", "sail", "kayak"];
   }
 }

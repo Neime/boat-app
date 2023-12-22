@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { BoatCardDirective } from "../../directives/boat-card.directive";
 import { BoatTypeColorPipe } from "../../pipes/boat-type-color.pipe";
 import { CommonModule } from "@angular/common";
-import { InMemoryBoatRepository } from "../../../infrastructure/repository/inMemoryBoatRepository";
+import { InMemoryBoatRepository } from "../../../../infrastructure/repository/inMemoryBoatRepository";
+import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
 
 @Component({
   selector: "app-boat-detail",
@@ -15,13 +16,12 @@ import { InMemoryBoatRepository } from "../../../infrastructure/repository/inMem
   styles: ``,
 })
 export class BoatDetailComponent {
+  #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
   boat: Boat | undefined;
-
-  constructor(private readonly boatRepository: InMemoryBoatRepository) {}
 
   @Input()
   set id(id: number) {
-    this.boat = this.boatRepository.byId(+id);
+    this.boat = this.#boatRepository.byId(+id);
   }
 
   goBack(): void {

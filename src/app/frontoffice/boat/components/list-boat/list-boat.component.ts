@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Boat } from "../../entities/boat";
+import { InMemoryBoatRepository } from "../../../../infrastructure/repository/inMemoryBoatRepository";
 import { BoatCardComponent } from "../boat-card/boat-card.component";
-import { InMemoryBoatRepository } from "../../../infrastructure/repository/inMemoryBoatRepository";
+import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
 
 @Component({
   selector: "app-list-boat",
@@ -12,11 +13,8 @@ import { InMemoryBoatRepository } from "../../../infrastructure/repository/inMem
   providers: [InMemoryBoatRepository],
 })
 export class ListBoatComponent {
-  boats: Boat[] = [];
-
-  constructor(private readonly boatRepository: InMemoryBoatRepository) {
-    this.boats = this.boatRepository.findAll();
-  }
+  #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
+  boats: Boat[] = this.#boatRepository.findAll();
 
   selectBoat(boatName: string): void {}
 }
