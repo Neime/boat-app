@@ -20,20 +20,22 @@ export class AdminBoatFormComponent {
 
   @Input()
   set id(id: number) {
-    if (isNaN(+id)) this.boat = this.#boatRepository.byId(+id);
-
-    this.boat = {
-      id: 0,
-      name: "",
-      type: this.types[0],
-      city: "",
-    };
+    this.boat = !isNaN(+id)
+      ? this.#boatRepository.byId(+id)
+      : {
+          id: 0,
+          name: "",
+          type: this.types[0],
+          city: "",
+        };
   }
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
       return;
     }
+
+    console.log(form, this.boat);
     this.#boatRepository.save(this.boat as Boat);
     this.#router.navigate(["/admin/boats"]);
   }

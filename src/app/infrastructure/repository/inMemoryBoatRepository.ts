@@ -36,7 +36,12 @@ export class InMemoryBoatRepository implements BoatRepository {
     return this.#boats.find((b) => b.id === id)!;
   }
   save(boat: Boat): void {
-    this.#boats.push(boat);
+    if (!boat.id) {
+      boat.id = this.#boats.length + 1;
+      this.#boats.push(boat);
+    } else {
+      this.#boats = this.#boats.map((b) => (b.id === boat.id ? boat : b));
+    }
   }
   delete(boat: Boat): void {
     this.#boats = this.#boats.filter((b) => b.id !== boat.id);
