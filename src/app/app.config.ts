@@ -1,9 +1,14 @@
-import { ApplicationConfig } from "@angular/core";
+import { ApplicationConfig, mergeApplicationConfig } from "@angular/core";
 import { provideRouter, withComponentInputBinding } from "@angular/router";
 
 import { routes } from "./app.routes";
-import { boatRoutes } from "./frontoffice/boat/boat.routes";
+import { backOfficeConfig } from "./backoffice/backoffice.config";
 
-export const appConfig: ApplicationConfig = {
+const globalConfig: ApplicationConfig = {
   providers: [provideRouter(routes, withComponentInputBinding())],
 };
+
+export const appConfig: ApplicationConfig = mergeApplicationConfig(
+  globalConfig,
+  backOfficeConfig
+);

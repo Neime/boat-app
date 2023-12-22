@@ -10,7 +10,6 @@ import { BoatRepository } from "../../../../infrastructure/repository/boatReposi
   standalone: true,
   imports: [FormsModule],
   templateUrl: "./boat-form.component.html",
-  providers: [InMemoryBoatRepository],
 })
 export class AdminBoatFormComponent {
   #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
@@ -35,7 +34,6 @@ export class AdminBoatFormComponent {
       return;
     }
 
-    console.log(form, this.boat);
     this.#boatRepository.save(this.boat as Boat);
     this.#router.navigate(["/admin/boats"]);
   }
