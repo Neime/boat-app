@@ -1,20 +1,19 @@
-import { Component, OnInit, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Boat } from "../../entities/boat";
-import { InMemoryBoatRepository } from "../../../../infrastructure/repository/inMemoryBoatRepository";
 import { BoatCardComponent } from "../boat-card/boat-card.component";
 import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
 import { Observable } from "rxjs";
+import { ApiBoatRepository } from "../../../../infrastructure/repository/ApiBoatRepository";
 
 @Component({
   selector: "app-list-boat",
   standalone: true,
   imports: [CommonModule, BoatCardComponent],
   templateUrl: "./list-boat.component.html",
-  providers: [InMemoryBoatRepository],
 })
 export class ListBoatComponent {
-  #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
+  #boatRepository: BoatRepository = inject(ApiBoatRepository);
   boats: Observable<Boat[]> = this.#boatRepository.findAll();
 
   selectBoat(boatName: string): void {}

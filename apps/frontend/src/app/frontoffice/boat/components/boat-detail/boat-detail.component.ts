@@ -1,22 +1,20 @@
 import { Component, Input, inject } from "@angular/core";
 import { Boat } from "../../entities/boat";
-import { ActivatedRoute, Router } from "@angular/router";
 import { BoatCardDirective } from "../../directives/boat-card.directive";
 import { BoatTypeColorPipe } from "../../pipes/boat-type-color.pipe";
 import { CommonModule } from "@angular/common";
-import { InMemoryBoatRepository } from "../../../../infrastructure/repository/inMemoryBoatRepository";
 import { BoatRepository } from "../../../../infrastructure/repository/boatRepository";
+import { ApiBoatRepository } from "../../../../infrastructure/repository/ApiBoatRepository";
 
 @Component({
   selector: "app-boat-detail",
-  providers: [InMemoryBoatRepository],
   standalone: true,
   imports: [BoatCardDirective, BoatTypeColorPipe, CommonModule],
   templateUrl: "./boat-detail.component.html",
   styles: ``,
 })
 export class BoatDetailComponent {
-  #boatRepository: BoatRepository = inject(InMemoryBoatRepository);
+  #boatRepository: BoatRepository = inject(ApiBoatRepository);
   boat: Boat | undefined;
 
   @Input()
