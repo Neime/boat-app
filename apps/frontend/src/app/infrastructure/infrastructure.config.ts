@@ -1,5 +1,6 @@
 import { ApplicationConfig } from "@angular/core";
 import { environment } from "../../environments/environment";
+import { AuthService } from "./security/auth.service";
 
 export const infrastructureConfig: ApplicationConfig = {
   providers: [
@@ -7,5 +8,6 @@ export const infrastructureConfig: ApplicationConfig = {
       provide: "apiUrl",
       useValue: environment.backendApiUrl,
     },
+    AuthService,
   ],
 };

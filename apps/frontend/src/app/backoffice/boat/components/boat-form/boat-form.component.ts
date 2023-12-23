@@ -4,7 +4,6 @@ import { Router } from "@angular/router";
 import { FormsModule, NgForm } from "@angular/forms";
 import { BoatRepository } from "../../../../infrastructure/repository/boat/boatRepository";
 import { ApiBoatRepository } from "../../../../infrastructure/repository/boat/ApiBoatRepository";
-import { Observable, of } from "rxjs";
 import { CommonModule } from "@angular/common";
 
 @Component({
