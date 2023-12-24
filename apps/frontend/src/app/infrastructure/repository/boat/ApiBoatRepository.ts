@@ -3,12 +3,14 @@ import { Boat } from "../../../frontoffice/boat/entities/boat";
 import { BoatRepository } from "./boatRepository";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, catchError, of, tap } from "rxjs";
+import { AuthService } from "../../security/auth.service";
 
 @Injectable()
 export class ApiBoatRepository implements BoatRepository {
   constructor(
     private readonly httpClient: HttpClient,
-    @Inject("apiUrl") private readonly apiUrl: string
+    @Inject("apiUrl") private readonly apiUrl: string,
+    private readonly authService: AuthService
   ) {}
 
   search(term: string): Observable<Boat[]> {
@@ -35,7 +37,10 @@ export class ApiBoatRepository implements BoatRepository {
   }
   save(boat: Boat): Observable<Boat> {
     const httpOptions = {
-      headers: new HttpHeaders({ "Content-Type": "application/json" }),
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.authService.accessToken}`,
+      }),
     };
     if (!boat.id) {
       return this.httpClient.post<Boat>(
@@ -53,10 +58,18 @@ export class ApiBoatRepository implements BoatRepository {
   }
 
   delete(boat: Boat): Observable<null> {
-    return this.httpClient.delete(`${this.apiUrl}boats/${boat.id}`).pipe(
-      tap((response) => this.log(response)),
-      catchError((error) => this.handleError(error, null))
-    );
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.authService.accessToken}`,
+      }),
+    };
+    return this.httpClient
+      .delete(`${this.apiUrl}boats/${boat.id}`, httpOptions)
+      .pipe(
+        tap((response) => this.log(response)),
+        catchError((error) => this.handleError(error, null))
+      );
   }
 
   types(): string[] {

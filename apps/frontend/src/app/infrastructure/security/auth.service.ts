@@ -1,20 +1,24 @@
-import { Injectable } from "@angular/core";
-import { delay, Observable, of, tap } from "rxjs";
+import { Inject, Injectable } from "@angular/core";
+import { map, Observable } from "rxjs";
+import { AuthRepository } from "../repository/auth/authRepository";
 
 @Injectable()
 export class AuthService {
   isAuthenticatedAdmin: boolean = false;
+  accessToken: string = "";
 
-  login(name: string, password: string): Observable<boolean> {
-    const isAuthenticatedAdmin =
-      name == "admin@gmail.com" && password == "test";
+  constructor(
+    @Inject("AuthRepository") private readonly authRepository: AuthRepository
+  ) {}
 
-    return of(isAuthenticatedAdmin).pipe(
-      delay(1000),
-      tap(
-        (isAuthenticatedAdmin) =>
-          (this.isAuthenticatedAdmin = isAuthenticatedAdmin)
-      )
+  login(email: string, password: string): Observable<boolean> {
+    return this.authRepository.authenticate({ email, password }).pipe(
+      map((response) => {
+        const isAuthenticated = response?.access_token ? true : false;
+        this.accessToken = response?.access_token ? response.access_token : "";
+        this.isAuthenticatedAdmin = isAuthenticated;
+        return isAuthenticated;
+      })
     );
   }
 

@@ -6,7 +6,9 @@ import { Injectable } from '@nestjs/common';
 export class FindBoats {
   constructor(private readonly boatRepository: BoatRepository) {}
 
-  execute(): Promise<Boat[]> {
-    return this.boatRepository.boats({});
+  execute(term: string | null): Promise<Boat[]> {
+    return this.boatRepository.boats(
+      !term ? {} : { where: { name: { contains: term, mode: 'insensitive' } } },
+    );
   }
 }

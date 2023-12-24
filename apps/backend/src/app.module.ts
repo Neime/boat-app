@@ -11,24 +11,43 @@ import { UpdateBoatController } from './presentation/controller/updateBoatContro
 import { DeleteBoatController } from './presentation/controller/deleteBoatController';
 import { FindBoat } from './boat/use-case/findBoat';
 import { FindBoatController } from './presentation/controller/findBoatController';
+import { Auth } from './authorization/use-case/auth';
+import { UserRepository } from './infrastructure/repository/userRepository';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthController } from './presentation/controller/authController';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './infrastructure/authorization/auth.gard';
 
 @Module({
-  imports: [],
+  imports: [
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '60s' },
+    }),
+  ],
   controllers: [
     FindBoatsController,
     CreateBoatController,
     UpdateBoatController,
     DeleteBoatController,
     FindBoatController,
+    AuthController,
   ],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
     FindBoat,
     FindBoats,
     CreateBoat,
     UpdateBoat,
     DeleteBoat,
     BoatRepository,
+    UserRepository,
     PrismaService,
+    Auth,
   ],
 })
 export class AppModule {}
