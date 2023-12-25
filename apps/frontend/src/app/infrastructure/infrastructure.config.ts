@@ -11,6 +11,10 @@ export const infrastructureConfig: ApplicationConfig = {
       useValue: environment.backendApiUrl,
     },
     {
+      provide: "privateKey",
+      useValue: environment.privateKey,
+    },
+    {
       provide: "AuthRepository",
       useClass: ApiAuthRepository,
     },

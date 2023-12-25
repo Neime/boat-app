@@ -9,7 +9,6 @@ import { SessionStorage } from "../../infrastructure/repository/sessionStorage";
 @Injectable()
 export class AuthService {
   #isAuthenticatedAdmin: boolean = false;
-  accessToken: string = "";
 
   #accessTokenKey: string = "access_token";
 
@@ -18,13 +17,17 @@ export class AuthService {
     private readonly sessionStorage: SessionStorage<AccessToken>
   ) {}
 
+  getAccessToken(): string | null {
+    const accessToken = this.sessionStorage.getSession(this.#accessTokenKey);
+    if (accessToken) return accessToken.access_token;
+
+    return null;
+  }
+
   isAuthenticatedAdmin(): boolean {
     if (!this.#isAuthenticatedAdmin) {
       const accessToken = this.sessionStorage.getSession(this.#accessTokenKey);
-      if (accessToken) {
-        this.#isAuthenticatedAdmin = true;
-        this.accessToken = accessToken.access_token;
-      }
+      if (accessToken) return true;
     }
 
     return this.#isAuthenticatedAdmin;
@@ -34,7 +37,6 @@ export class AuthService {
     return this.authRepository.authenticate({ email, password }).pipe(
       map((response) => {
         const isAuthenticated = response?.access_token ? true : false;
-        this.accessToken = response?.access_token ? response.access_token : "";
         this.#isAuthenticatedAdmin = isAuthenticated;
         if (isAuthenticated)
           this.sessionStorage.setSession(this.#accessTokenKey, response);

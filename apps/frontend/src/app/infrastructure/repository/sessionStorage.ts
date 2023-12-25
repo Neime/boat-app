@@ -1,8 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import * as CryptoJS from "crypto-js";
 
 @Injectable()
 export class SessionStorage<T> {
+  constructor(@Inject("privateKey") private readonly privateKey: string) {}
   setSession(key: string, data: T): void {
     const encryptedData = this.encryptData(data);
     localStorage.setItem(key, encryptedData);
@@ -21,10 +22,15 @@ export class SessionStorage<T> {
 
   private encryptData(data: T): string {
     const dataString = JSON.stringify(data);
-    return CryptoJS.SHA256(dataString).toString();
+    return CryptoJS.AES.encrypt(dataString, this.privateKey).toString();
   }
 
   private decryptData(encryptedData: string): T {
-    return CryptoJS.SHA256(encryptedData) as unknown as T;
+    const decryptData = CryptoJS.AES.decrypt(
+      encryptedData,
+      this.privateKey
+    ).toString(CryptoJS.enc.Utf8);
+
+    return decryptData ? JSON.parse(decryptData) : null;
   }
 }

@@ -39,7 +39,7 @@ export class ApiBoatRepository implements BoatRepository {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.authService.accessToken}`,
+        Authorization: `Bearer ${this.authService.getAccessToken()}`,
       }),
     };
     if (!boat.id) {
@@ -61,7 +61,7 @@ export class ApiBoatRepository implements BoatRepository {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.authService.accessToken}`,
+        Authorization: `Bearer ${this.authService.getAccessToken()}`,
       }),
     };
     return this.httpClient
