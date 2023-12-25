@@ -5,24 +5,28 @@
     "main": "index.js",
     "private": true,
     "workspaces": [
-      "apps/*",
-      "packages/*"
+        "apps/*",
+        "packages/*"
     ],
     "scripts": {
-      "build": "turbo run build",
-      "dev": "turbo run dev --parallel",
-      "lint": "turbo run lint",
-      "format": "prettier --write \"**/*.{ts,tsx,md}\""
+        "build": "turbo run build",
+        "dev": "turbo run dev --parallel",
+        "lint": "turbo run lint",
+        "format": "prettier --write \"**/*.{ts,tsx,md}\""
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
-      "prettier": "^2.6.2",
-      "turbo": "latest"
+        "@types/crypto-js": "^4.2.1",
+        "prettier": "^2.6.2",
+        "turbo": "latest"
     },
     "engines": {
-      "npm": ">=7.0.0",
-      "node": ">=14.0.0"
+        "npm": ">=7.0.0",
+        "node": ">=14.0.0"
+    },
+    "dependencies": {
+        "crypto-js": "^4.2.0"
     }
-  }
+}

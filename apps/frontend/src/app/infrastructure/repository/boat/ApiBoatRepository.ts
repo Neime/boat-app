@@ -3,7 +3,7 @@ import { Boat } from "../../../frontoffice/boat/entities/boat";
 import { BoatRepository } from "./boatRepository";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, catchError, of, tap } from "rxjs";
-import { AuthService } from "../../security/auth.service";
+import { AuthService } from "../../../login/security/auth.service";
 
 @Injectable()
 export class ApiBoatRepository implements BoatRepository {

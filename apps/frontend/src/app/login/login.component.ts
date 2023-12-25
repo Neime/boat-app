@@ -1,6 +1,6 @@
 import { Component, WritableSignal, inject, signal } from "@angular/core";
 import { Router, RouterOutlet } from "@angular/router";
-import { AuthService } from "../infrastructure/security/auth.service";
+import { AuthService } from "./security/auth.service";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
@@ -18,7 +18,7 @@ export class LoginComponent {
   #router: Router = inject(Router);
 
   setMessage() {
-    if (!this.#auth.isAuthenticatedAdmin) {
+    if (!this.#auth.isAuthenticatedAdmin()) {
       this.message = "Indentifiant ou mot de passe incorrect.";
     }
   }

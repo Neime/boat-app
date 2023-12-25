@@ -13,6 +13,6 @@ export const canActivateAdmin: CanActivateFn = (
 ) => {
   const router = inject(Router);
 
-  if (inject(AuthService).isAuthenticatedAdmin) return true;
+  if (inject(AuthService).isAuthenticatedAdmin()) return true;
   return router.parseUrl("/login");
 };

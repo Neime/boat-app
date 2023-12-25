@@ -8,8 +8,8 @@ import {
 } from "@angular/router";
 import { FrontOfficeComponent } from "./frontoffice/frontoffice.component";
 import { BackOfficeComponent } from "./backoffice/backoffice.component";
-import { InMemoryUserRepository } from "./infrastructure/repository/inMemoryUserRepository";
-import { UserRepository } from "./infrastructure/repository/userRepository";
+import { InMemoryUserRepository } from "./infrastructure/repository/user/inMemoryUserRepository";
+import { UserRepository } from "./infrastructure/repository/user/userRepository";
 
 @Component({
   selector: "app-root",
