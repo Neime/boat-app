@@ -36,7 +36,8 @@ export class AuthService {
         const isAuthenticated = response?.access_token ? true : false;
         this.accessToken = response?.access_token ? response.access_token : "";
         this.#isAuthenticatedAdmin = isAuthenticated;
-        this.sessionStorage.setSession(this.#accessTokenKey, response);
+        if (isAuthenticated)
+          this.sessionStorage.setSession(this.#accessTokenKey, response);
         return isAuthenticated;
       })
     );
